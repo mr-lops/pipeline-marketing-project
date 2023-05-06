@@ -1,0 +1,5 @@
+.terraform
+terraform_state
+.terraform.lock.hcl
+venv
+terraform.exe
