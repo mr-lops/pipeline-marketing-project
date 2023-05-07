@@ -32,6 +32,3 @@ CREATE TABLE economics
     euribor_three_months FLOAT,
     number_employed FLOAT
 );
-
-client_id SERIAL references client (id),
-client_id SERIAL references client (id),
