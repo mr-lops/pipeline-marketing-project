@@ -12,8 +12,8 @@ CREATE TABLE client
 
 CREATE TABLE campaign
 (
-    campaign_id SERIAL PRIMARY KEY,
-    client_id SERIAL references client (id),
+    id SERIAL PRIMARY KEY,
+    client_id INTEGER,
     number_contacts INTEGER,
     contact_duration INTEGER,
     pdays INTEGER,
@@ -26,9 +26,16 @@ CREATE TABLE campaign
 
 CREATE TABLE economics
 (
-    client_id SERIAL references client (id),
+    id SERIAL PRIMARY KEY,
+    client_id INTEGER,
     emp_var_rate FLOAT,
     cons_price_idx FLOAT,
     euribor_three_months FLOAT,
     number_employed FLOAT
 );
+
+ALTER TABLE campaign
+ADD CONSTRAINT fk_campaign_client FOREIGN KEY (client_id) REFERENCES client(id);
+
+ALTER TABLE economics
+ADD CONSTRAINT fk_economics_client FOREIGN KEY (client_id) REFERENCES client(id);
