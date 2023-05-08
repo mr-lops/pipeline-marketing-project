@@ -10,7 +10,7 @@ output "airflow_access_key" {
 
 # Mostra a chave secreta do usuario airflow
 output "airflow_secret_key" {
-  value = aws_iam_access_key.airflow_credentials.secret
+  value     = aws_iam_access_key.airflow_credentials.secret
   sensitive = true
 }
 

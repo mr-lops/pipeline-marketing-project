@@ -42,7 +42,7 @@ resource "aws_iam_user_policy_attachment" "marketing_policy_to_airflow" {
 
 # Cria chave de acesso para o usuario airflow
 resource "aws_iam_access_key" "airflow_credentials" {
-  user    = aws_iam_user.airflow_user.name
+  user = aws_iam_user.airflow_user.name
 
   depends_on = [
     aws_iam_user.airflow_user
