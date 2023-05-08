@@ -22,7 +22,7 @@ resource "aws_iam_policy" "marketing_bucket_policy_for_airflow" {
             "s3:ListBucket"
           ],
           "Effect" : "Allow",
-          "Resource" : aws_s3_bucket.marketing_source_bucket.arn
+          "Resource" : "${aws_s3_bucket.marketing_source_bucket.arn}"
         }
       ]
     }
