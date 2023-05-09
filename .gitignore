@@ -1,5 +1,6 @@
 .env
 .terraform
+.vscode
 terraform_state
 .terraform.lock.hcl
 venv
