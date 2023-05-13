@@ -13,13 +13,13 @@ load_dotenv()
 
 default_agrs = {
     'description' : 'Realiza a extração, tranformação e carga de dados de um bucket S3 para um banco de dados Postgres',
-    'start_date' : airflow_date.days_ago(15),
+    'start_date' : airflow_date.days_ago(7),
 }
 
 with DAG (
     dag_id="Pipeline ETL Marketing",
     default_args= default_agrs,
-    schedule_interval= None,
+    schedule_interval= "0 22 * * 6",
     tags=['Marketing','ETL'],
     
     
