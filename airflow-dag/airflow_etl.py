@@ -55,14 +55,14 @@ with DAG (
     
     transform = PythonOperator(
         task_id = 'tansform_task',
-        python_callable= _extract,
+        python_callable= _transform,
         email_on_failure= True,
         email = os.environ.get('EMAIL')
     )
     
     load = PythonOperator(
         task_id = 'load_task',
-        python_callable= _extract,
+        python_callable= _load,
         email_on_failure= True,
         email = os.environ.get('EMAIL')
     )
