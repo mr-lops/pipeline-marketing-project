@@ -2,8 +2,8 @@
 import pandas as pd
 import numpy as np
 import psycopg2
-import datetime
-import pytz
+from datetime import datetime, timedelta
+from pytz import timezone
 from dotenv import load_dotenv
 import os
 from airflow import DAG
@@ -39,7 +39,7 @@ def _load():
 with DAG (
     dag_id="Pipeline ETL Marketing",
     description = 'Realiza a extração, tranformação e carga de dados de um bucket S3 para um banco de dados Postgres',
-    start_date = airflow_date.days_ago(7),
+    start_date = airflow_date.days_ago(1),
     schedule_interval= "0 22 * * 6",
     tags=['Marketing','ETL'],
     
@@ -50,7 +50,10 @@ with DAG (
         task_id = 'extract_task',
         python_callable= _extract,
         email_on_failure= True,
-        email = os.environ.get('EMAIL')
+        email = os.environ.get('EMAIL'),
+        retries = 3,
+        retry_delay = timedelta(minutes=5)
+        
     )
     
     transform = PythonOperator(
@@ -64,7 +67,9 @@ with DAG (
         task_id = 'load_task',
         python_callable= _load,
         email_on_failure= True,
-        email = os.environ.get('EMAIL')
+        email = os.environ.get('EMAIL'),
+        retries = 3,
+        retry_delay = timedelta(minutes=5)
     )
     
     notify = EmailOperator(
@@ -73,7 +78,7 @@ with DAG (
         email = os.environ.get('EMAIL'), 
         to= os.environ.get('EMAIL'),
         subject='Pipeline Realizado Com Sucesso',
-        html_content=f"<p> O Pipeline foi executado com sucesso as {str(datetime.datetime.now(pytz.timezone('America/Sao_Paulo')))}. <p>"
+        html_content=f"<p> O Pipeline foi executado com sucesso as {str(datetime.now(timezone('America/Sao_Paulo')))}. <p>"
     )
     
     extract >> transform >> load >> notify
