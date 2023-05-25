@@ -1,7 +1,6 @@
 # Cria usuario airflow
 resource "aws_iam_user" "airflow_user" {
   name = "airflow"
-
   force_destroy = true
 }
 

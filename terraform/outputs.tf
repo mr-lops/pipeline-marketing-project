@@ -14,4 +14,4 @@ output "airflow_secret_key" {
   sensitive = true
 }
 
-# terraform output -json
+# Para visualizar informação sensivel : terraform output -json
