@@ -56,6 +56,3 @@ A ferramenta que os analistas da empresa utilizam se chama Microsoft Power BI, Ã
 
 ## Como Rodar o Projeto <a name = "run"></a>
 
-<!-- ```
-Give examples
-```  -->
