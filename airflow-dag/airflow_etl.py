@@ -7,7 +7,6 @@ from airflow import DAG
 import airflow.utils.dates as airflow_date
 from airflow.operators.python import PythonOperator
 from airflow.operators.email import EmailOperator
-import shutil
 
 # Pastas temporarias onde irão ficar os dados que foram extraidos e os dados que foram tratados.
 staging = "tmp/staging/"
@@ -20,24 +19,44 @@ load_dotenv()
 # Função de extração dos dados do bucket S3
 def _extract():
     import boto3
+    import pathlib
     
+    # Pegar as credenciais da conta AWS por meio de variaveis de ambiente
     aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
     aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
     # Configura as credenciais de acesso à conta da AWS
     s3 = boto3.resource('s3', aws_access_key_id=aws_access_key_id,
                         aws_secret_access_key=aws_secret_access_key)
-
+    
+    # Pegar o nome do bucket por meio de variaveis de ambiente
+    bucket = s3.Bucket(os.environ.get('BUCKET_NAME'))
+    
+    # Cria diretorio para armazenar os arquivos baixados do bucket
+    pathlib.Path(staging).mkdir(parents=True, exist_ok=True)
+    
+    # Baixa todos os arquivos .CSV que foram adicionados em um itervalo de 6 dias e meio atras e salva no diretorio criado anteriormente
+    for obj in bucket.objects.all():
+        if obj.key.lower().endswith('.csv'):
+            hr_add = int((datetime.now(timezone('America/Sao_Paulo')) - obj.last_modified.astimezone(timezone('America/Sao_Paulo'))).seconds//3600)
+            if hr_add < 156:
+                print("Downloading: " + obj.key)
+                bucket.download_file(obj.key, f'{staging}{obj.key}')
+            
+    
 
 # Função de transformação dos dados, os deixando no padrão para serem enviados
 def _transform():
     import pandas as pd
     import numpy as np
+    import pathlib
     
+    pathlib.Path(refined).mkdir(parents=True, exist_ok=True)
 
 # Função de carregamento dos dados ja transformados para o banco Postgres
 def _load():
     import psycopg2
+    import shutil
     # Conecta com o banco de dados Postgres
     conn = psycopg2.connect(
         host=os.environ.get('DB_HOST'),
