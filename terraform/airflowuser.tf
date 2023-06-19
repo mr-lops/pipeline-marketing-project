@@ -4,7 +4,7 @@ resource "aws_iam_user" "airflow_user" {
   force_destroy = true
 }
 
-# Cria politica para o usuario airflow ter acesso ao bucket marketing
+# Cria politica para o usuario airflow ter acesso ao bucket marketing e seus arquivos
 resource "aws_iam_policy" "marketing_bucket_policy_for_airflow" {
   name        = "bucket_policy_airflow"
   path        = "/"
@@ -18,10 +18,14 @@ resource "aws_iam_policy" "marketing_bucket_policy_for_airflow" {
           "Sid" : "Stmt1683161920999",
           "Action" : [
             "s3:GetObject",
-            "s3:ListBucket"
+            "s3:ListBucket",
+            "s3:GetObjectAttributes"
           ],
           "Effect" : "Allow",
-          "Resource" : "${aws_s3_bucket.marketing_source_bucket.arn}"
+          "Resource" : [
+            "${aws_s3_bucket.marketing_source_bucket.arn}",
+            "${aws_s3_bucket.marketing_source_bucket.arn}/*"
+          ]
         }
       ]
     }
