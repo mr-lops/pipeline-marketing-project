@@ -56,3 +56,35 @@ A ferramenta que os analistas da empresa utilizam se chama Microsoft Power BI, �
 
 ## Como Rodar o Projeto <a name = "run"></a>
 
+### Requisitos
+ - <a href="https://aws.amazon.com/pt/free/?trk=16c88e2f-f4a2-4df9-a8da-5cec9a840180&sc_channel=ps&ef_id=Cj0KCQjwy9-kBhCHARIsAHpBjHgoBuCsAGz5KbOD-mBqkU-pjhss27HIyogO5NptoI4K8hKOtHVkpkMaAms4EALw_wcB:G:s&s_kwcid=AL!4422!3!659757281492!e!!g!!conta%20da%20aws!20187397673!152493143234&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all">Conta AWS</a>
+  - <a href="https://developer.hashicorp.com/terraform/downloads?product_intent=terraform">Terraform</a>
+  - <a href="https://www.postgresql.org/download/">Postgres</a>
+  - <a href="https://airflow.apache.org/">Airflow</a>
+- <a href="https://powerbi.microsoft.com/pt-br/landing/free-account/?ef_id=_k_Cj0KCQjwy9-kBhCHARIsAHpBjHgXvtqDiWjvWJn-ef6tK6aXC7WwkVPw8FhtNFNEr-rM4M2ZU9wLwWQaApLhEALw_wcB_k_&OCID=AIDcmmk4cy2ahx_SEM__k_Cj0KCQjwy9-kBhCHARIsAHpBjHgXvtqDiWjvWJn-ef6tK6aXC7WwkVPw8FhtNFNEr-rM4M2ZU9wLwWQaApLhEALw_wcB_k_&gclid=Cj0KCQjwy9-kBhCHARIsAHpBjHgXvtqDiWjvWJn-ef6tK6aXC7WwkVPw8FhtNFNEr-rM4M2ZU9wLwWQaApLhEALw_wcB">Power BI</a>
+
+Crie <a href="https://docs.aws.amazon.com/pt_br/toolkit-for-visual-studio/latest/user-guide/keys-profiles-credentials.html">Chaves de Acesso </a> para sua conta AWS, com as credenciais em mãos, crie variaveis de ambiente temporarias com as informações adquiridas:
+#### WINDOWS ( PowerShell )
+```
+$env:AWS_ACCESS_KEY_ID="minhachavedeacesso"
+$env:AWS_SECRET_ACCESS_KEY="minhachavesecreta"
+```
+
+#### LINUX / MAC
+```
+export AWS_ACCESS_KEY_ID=minhachavedeacesso
+export AWS_SECRET_ACCESS_KEY=minhachavesecreta
+```
+<br>
+
+Com o Terraform instalado, execute no terminal o comando: 
+```
+terraform init
+```
+na pasta chamada "terraform" do projeto para inicializar diretório de trabalho que contem arquivos de configuração do Terraform.
+
+Em seguida execute o comando:
+```
+terraform apply
+```
+para provisionar a infraestrutura necessária para o projeto.
