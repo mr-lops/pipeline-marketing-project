@@ -192,7 +192,7 @@ with DAG (
     
     # Cria a tarefa que realiza a transformação dos dados
     transform = PythonOperator(
-        task_id = 'tansform_task',
+        task_id = 'transform_task',
         python_callable= _transform,
         email_on_failure= True,
         email = os.environ.get('EMAIL')
