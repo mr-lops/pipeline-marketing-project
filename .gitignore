@@ -1,4 +1,3 @@
-.env
 .terraform
 .vscode
 terraform_state
