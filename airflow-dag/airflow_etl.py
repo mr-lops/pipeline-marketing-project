@@ -220,4 +220,3 @@ with DAG (
     
     # Define a ordem que as tarefas serão executadas
     extract >> transform >> load >> notify
-    
