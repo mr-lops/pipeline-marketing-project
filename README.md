@@ -75,16 +75,18 @@ $env:AWS_SECRET_ACCESS_KEY="minhachavesecreta"
 export AWS_ACCESS_KEY_ID=minhachavedeacesso
 export AWS_SECRET_ACCESS_KEY=minhachavesecreta
 ```
+
 <br>
 
-Com o Terraform instalado, execute no terminal o comando: 
+Com o Terraform instalado, na pasta chamada "terraform" do projeto execute no terminal o comando: 
 ```
 terraform init
 ```
-na pasta chamada "terraform" do projeto para inicializar diretório de trabalho que contem arquivos de configuração do Terraform.
+Esse comando inicializar diretório de trabalho que contem arquivos de configuração do Terraform.
 
-Em seguida execute o comando:
+<br>
+
+Em seguida, para provisionar a infraestrutura necessária para o projeto, execute o comando:
 ```
 terraform apply
 ```
-para provisionar a infraestrutura necessária para o projeto.
