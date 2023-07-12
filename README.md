@@ -101,10 +101,34 @@ Após a finalização do provisionamento da infraestrutura, execute:
 ```
 terraform output -json
 ```
-Esse comando mostra as saidas definidas no arquivo <b>outputs.tf</b>, nesse arquivo foi definido para mostrar o nome do bucket criado, a chave de acesso e a chave secreta do usuario<i>. (A chave secreta é um parametro sensivel, por questões de segurança o terraform normalmente não irá mostra-la, por isso é utilizado o <b>-json</b> para visualizar essa informação sensivel)</i>
+Esse comando mostra as saidas definidas no arquivo <b>outputs.tf</b>, nesse arquivo foi definido para mostrar o nome do bucket criado, a chave de acesso e a chave secreta do usuario, guarde essas informações<i>. (A chave secreta é um parametro sensivel, por questões de segurança o terraform normalmente não irá mostra-la, por isso é utilizado o <b>-json</b> para visualizar essa informação sensivel)</i>
+
+Copie o arquivo <b>airflow_etl.py</b> e cole na pasta de dags do seu Airflow, configure o seu <a href="https://airflow.apache.org/docs/apache-airflow/stable/howto/email-config.html">e-mail no Airflow </a>, instale os pacotes do arquivo <b>requirements.txt</b>, por fim, crie um arquivo com o nome <b>.env</b> na mesma pasta que se encontra o <b>airflow_etl.py</b>.
+
+Abrar o <b>.env</b> com algum editor de texto, o mesmo deverá conter a seguinte estrutura:
+
+```
+# postgres
+DB_USER="airflow"
+DB_PASSWORD="MyP@ssword"
+DB_HOST="localhost"
+DB_NAME="loan"
+DB_PORT=5432
+
+# aws
+AWS_ACCESS_KEY_ID= "suachavedeacesso"
+AWS_SECRET_ACCESS_KEY= "suachavesecreta"
+BUCKET_NAME = "nomedobucket"
+
+# e-mail
+EMAIL = "seuemailairflow@gmail.com.br"
+```
+
+Pronto! A pipeline de dados foi construida. Para testar basta rodar a dag no Airflow.
 
 <br>
 
-Com as informações adquiridas do Terrafom, 
-
-<!-- <a href="https://airflow.apache.org/docs/apache-airflow/stable/howto/email-config.html">configurar o e-mail no Airflow </a>  -->
+Após finalizar os testes não se esqueça de excluir a infraestrutura criada na AWS para evitar possiveis custos. Utilize o comando abaixo para excluir os recursos criados.
+```
+terraform destroy --auto-approve
+```
