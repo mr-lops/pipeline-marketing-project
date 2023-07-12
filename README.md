@@ -124,8 +124,7 @@ BUCKET_NAME = "nomedobucket"
 EMAIL = "seuemailairflow@gmail.com.br"
 ```
 
-Pronto! A pipeline de dados foi construida. Para testar basta rodar a dag no Airflow.
-
+Pronto! A pipeline de dados foi construida. Depois da primeira execução da dag o usuario <i>joao</i> poderá realizar suas analises se conectando ao banco de dados pelo Power BI.
 <br>
 
 Após finalizar os testes não se esqueça de excluir a infraestrutura criada na AWS para evitar possiveis custos. Utilize o comando abaixo para excluir os recursos criados.
